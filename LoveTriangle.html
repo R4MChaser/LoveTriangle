@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Triangle - Pilihan Arif</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(255, 182, 193, 0.3);
+            border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff69b4;
+            text-align: center;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #d81b60;
+            font-weight: 500;
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 120px;
+            padding: 2rem 0;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            color: #ff1493;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #d81b60;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-image {
+            margin: 2rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-intro {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Character Section */
+        .character-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.05) 0%, transparent 70%);
+            animation: rotateReverse 25s linear infinite;
+        }
+
+        @keyframes rotateReverse {
+            to { transform: rotate(-360deg); }
+        }
+
+        .section-title {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+        }
+
+        .character-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .character-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .character-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+            transition: all 0.4s ease;
+            border: 5px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .character-image:hover img {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.5);
+        }
+
+        .character-info h3 {
+            color: #d81b60;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .character-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .character-traits h4 {
+            color: #ff69b4;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .character-traits ul {
+            list-style: none;
+        }
+
+        .character-traits li {
+            padding: 0.8rem 0;
+            font-size: 1.1rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .character-traits li:hover {
+            color: #ff1493;
+            transform: translateX(10px);
+        }
+
+        .character-traits i {
+            color: #ff69b4;
+            font-size: 1.2rem;
+        }
+
+        /* Decision Section */
+        .decision-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decision-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff1493, #ff69b4, #ff1493);
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { transform: translateX(-100%); }
+        }
+
+        .decision-section h2 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .decision-section p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .choice-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .choice-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 182, 193, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(255, 105, 180, 0.4);
+            border-color: #ff69b4;
+        }
+
+        .choice-card:hover::before {
+            transform: scale(1.5);
+        }
+
+        .choice-card:active {
+            transform: translateY(-10px) scale(1.01);
+        }
+
+        .choice-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ff1493;
+            position: relative;
+            z-index: 1;
+        }
+
+        .choice-card p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+
+        .choice-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .choice-image img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .choice-card:hover .choice-image img {
+            transform: scale(1.1);
+        }
+
+        .choice-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .choice-features span {
+            background: rgba(255, 182, 193, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #d81b60;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .choice-features span:hover {
+            background: rgba(255, 105, 180, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Ending Section */
+        .ending-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ending-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff1493, #ff69b4, #ff1493);
+            animation: shimmer 2s linear infinite reverse;
+        }
+
+        .ending-section h2 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .ending-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .restart-button {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem;
+        }
+
+        .restart-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.6);
+        }
+
+        .restart-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: fixed;
+            color: #ff69b4;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: float-up 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-links a {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .character-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .choice-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .character-section,
+            .decision-section,
+            .ending-section {
+                padding: 2rem 1rem;
+            }
+            
+            .character-image img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 182, 193, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff69b4;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Page Transition Effects */
+        .page-transition {
+            animation: pageSlide 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Click feedback */
+        .click-feedback {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: clickRipple 0.6s ease-out forwards;
+        }
+
+        @keyframes clickRipple {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <div class="logo">
+                <i class="fas fa-heart"></i> Love Story
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('intro')" class="active">
+                    <i class="fas fa-play-circle"></i> Pembukaan
+                </a></li>
+                <li><a href="#" onclick="showPage('arif')">
+                    <i class="fas fa-user"></i> Arif
+                </a></li>
+                <li><a href="#" onclick="showPage('aisyah')">
+                    <i class="fas fa-female"></i> Aisyah
+                </a></li>
+                <li><a href="#" onclick="showPage('nisa')">
+                    <i class="fas fa-female"></i> Nisa
+                </a></li>
+                <li><a href="#" onclick="showPage('decision')">
+                    <i class="fas fa-heart-broken"></i> Keputusan
+                </a></li>
+                <li><a href="#" onclick="showPage('ending')">
+                    <i class="fas fa-flag-checkered"></i> Penutupan
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Introduction Page -->
+            <div id="intro-page" class="page active">
+                <div class="hero-section">
+                    <h1 class="hero-title">Love Triangle</h1>
+                    <p class="hero-subtitle">Kisah Cinta yang Membingungkan</p>
+                    <div class="hero-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc177wYc5F9_S4_1TDVFwdgPuv9B5N5sTpHg&s" alt="Love Story">
+                    </div>
+                    <p class="story-intro">
+                        Di dunia yang penuh keajaiban cinta, Arif menemukan dirinya di tengah dilema hati. 
+                        Dua wanita istimewa masuk ke dalam hidupnya - Aisyah yang manis dan Nisa yang cerdas. 
+                        Siapa yang akan menjadi pilihan akhirnya?
+                    </p>
+                    <button class="cta-button" onclick="showPage('arif'); createClickFeedback(event)">
+                        <i class="fas fa-play"></i> Mulai Petualangan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Arif Page -->
+            <div id="arif-page" class="page">
+                <div class="character-section">
+                    <h2 class="section-title">Arif - Pria Bingung</h2>
+                    <div class="character-content">
+                        <div class="character-image">
+                            <img src="https://lh4.googleusercontent.com/vrBGJyRaCaFFoA2tE-dg8uqnuseN40iwuGUdvNV2IA0lzHAxxTv_IA6010lJWaRsjgj8sIfk0kVY9HJtF7Ww7aYnGu0kiW7k6_u1p_MzkxcgB2fhCssFYbLAoZAhHyfWV97FQgyg" alt="Arif">
+                        </div>
+                        <div class="character-info">
+                            <h3>Tentang Arif</h3>
+                            <p>
+                                Arif adalah seorang pria yang baik hati namun sering bingung dalam mengambil keputusan. 
+                                Dia jatuh hati pada dua wanita yang sangat berbeda karakternya. 
+                                Arif mencintai kebaikan Aisyah namun juga terpesona dengan kecerdasan Nisa.
+                            </p>
+                            <div class="character-traits">
+                                <h4>Karakteristik:</h4>
+                                <ul>
+                                    <li><i class="fas fa-heart"></i> Romantis</li>
+                                    <li><i class="fas fa-brain"></i> Pemikir</li>
+                                    <li><i class="fas fa-hands-helping"></i> Penolong</li>
+                                    <li><i class="fas fa-question"></i> Bingung</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aisyah Page -->
+            <div id="aisyah-page" class="page">
+                <div class="character-section">
+                    <h2 class="section-title">Aisyah - Gadis Manis</h2>
+                    <div class="character-content">
+                        <div class="character-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2lFQNEC68I0d2tA3cocuIcG1PJ9aHxuJ0zA&s" alt="Aisyah">
+                        </div>
+                        <div class="character-info">
+                            <h3>Tentang Aisyah</h3>
+                            <p>
+                                Aisyah adalah gadis yang selalu tersenyum dan memiliki hati yang sangat lembut. 
+                                Dia selalu mendukung Arif dalam setiap keputusannya dan memberikan kehangatan yang tak tergantikan.
+                            </p>
+                            <div class="character-traits">
+                                <h4>Karakteristik:</h4>
+                                <ul>
+                                    <li><i class="fas fa-smile"></i> Selalu ceria</li>
+                                    <li><i class="fas fa-heart"></i> Penuh kasih</li>
+                                    <li><i class="fas fa-hand-holding-heart"></i> Setia</li>
+                                    <li><i class="fas fa-sun"></i> Penyemangat</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nisa Page -->
+            <div id="nisa-page" class="page">
+                <div class="character-section">
+                    <h2 class="section-title">Nisa - Gadis Cerdas</h2>
+                    <div class="character-content">
+                        <div class="character-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxc8ZlHIvbq6BMtS91apoi9P8-YykpA4wxJA&s" alt="Nisa">
+                        </div>
+                        <div class="character-info">
+                            <h3>Tentang Nisa</h3>
+                            <p>
+                                Nisa adalah wanita yang cerdas, mandiri, dan memiliki pandangan yang jelas tentang hidup. 
+                                Dia mampu memberikan perspektif baru bagi Arif dan membantunya melihat masalah dari berbagai sisi.
+                            </p>
+                            <div class="character-traits">
+                                <h4>Karakteristik:</h4>
+                                <ul>
+                                    <li><i class="fas fa-lightbulb"></i> Cerdas</li>
+                                    <li><i class="fas fa-balance-scale"></i> Adil</li>
+                                    <li><i class="fas fa-chess"></i> Strategis</li>
+                                    <li><i class="fas fa-rocket"></i> Ambisius</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Page -->
+            <div id="decision-page" class="page">
+                <div class="decision-section">
+                    <h2 class="section-title">Keputusan Arif</h2>
+                    <p>Waktunya Arif memilih. Siapa yang akan menjadi pilihannya?</p>
+                    
+                    <div class="choice-container">
+                        <div class="choice-card" onclick="makeChoice('aisyah'); createClickFeedback(event)">
+                            <h3>Aisyah</h3>
+                            <p>Pilih kehangatan dan cinta tulus</p>
+                            <div class="choice-image">
+                                <img src="https://media.istockphoto.com/id/1349245500/id/vektor/ikon-tanda-tanya-dalam-gelembung-ucapan-merah-muda-tanda-tanya.jpg?s=612x612&w=0&k=20&c=Neorl_rjlzKARTp787rXuHmAycDjgpn8aYyW37EPgDc=" alt="Aisyah">
+                            </div>
+                            <div class="choice-features">
+                                <span><i class="fas fa-heart"></i> Cinta Tulus</span>
+                                <span><i class="fas fa-sun"></i> Kehangatan</span>
+                                <span><i class="fas fa-smile"></i> Kebahagiaan</span>
+                            </div>
+                        </div>
+                        
+                        <div class="choice-card" onclick="makeChoice('nisa'); createClickFeedback(event)">
+                            <h3>Nisa</h3>
+                            <p>Pilih kecerdasan dan perspektif baru</p>
+                            <div class="choice-image">
+                                <img src="https://media.istockphoto.com/id/1349245500/id/vektor/ikon-tanda-tanya-dalam-gelembung-ucapan-merah-muda-tanda-tanya.jpg?s=612x612&w=0&k=20&c=Neorl_rjlzKARTp787rXuHmAycDjgpn8aYyW37EPgDc=" alt="Nisa">
+                            </div>
+                            <div class="choice-features">
+                                <span><i class="fas fa-brain"></i> Kecerdasan</span>
+                                <span><i class="fas fa-balance-scale"></i> Keadilan</span>
+                                <span><i class="fas fa-rocket"></i> Pertumbuhan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ending Page -->
+            <div id="ending-page" class="page">
+                <div class="ending-section">
+                    <h2 class="section-title">Akhir Kisah</h2>
+                    <div id="ending-content">
+                        <!-- Content will be dynamically inserted -->
+                    </div>
+                    <button class="restart-button" onclick="restartStory(); createClickFeedback(event)">
+                        <i class="fas fa-redo"></i> Mulai Lagi
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Configuration
+        const config = {
+            characters: {
+                arif: {
+                    name: "Arif",
+                    description: "Pria yang baik hati namun sering bingung"
+                },
+                aisyah: {
+                    name: "Aisyah",
+                    description: "Gadis yang manis dan penuh kasih"
+                },
+                nisa: {
+                    name: "Nisa",
+                    description: "Wanita yang cerdas dan mandiri"
+                }
+            },
+            
+            endingAisyah: `
+                <h3>Arif Memilih Aisyah</h3>
+                <p>Arif menyadari bahwa kehangatan dan cinta tulus yang diberikan Aisyah adalah yang paling dibutuhkannya. 
+                Mereka memulai hubungan yang penuh kebahagiaan dan saling mendukung. 
+                Aisyah membantu Arif menjadi lebih yakin diri, sementara Arif memberikan kestabilan dalam hidup Aisyah.</p>
+                <p>Mereka hidup bahagia bersama, membuktikan bahwa cinta tulus adalah fondasi terkuat dalam hubungan.</p>
+                <div class="ending-features">
+                    <span><i class="fas fa-heart"></i> Cinta Abadi</span>
+                    <span><i class="fas fa-smile"></i> Kebahagiaan</span>
+                    <span><i class="fas fa-home"></i> Kestabilan</span>
+                </div>
+            `,
+            
+            endingNisa: `
+                <h3>Arif Memilih Nisa</h3>
+                <p>Arif memilih Nisa karena kecerdasan dan perspektif barunya membantu Arif menjadi lebih baik. 
+                Mereka membangun hubungan berdasarkan pemahaman dan pertumbuhan bersama. 
+                Nisa mengajari Arif untuk lebih rasional dalam mengambil keputusan.</p>
+                <p>Mereka bersama-sama meraih kesuksesan dalam karir dan kehidupan, membuktikan bahwa cinta bisa tumbuh bersama pertumbungan pribadi.</p>
+                <div class="ending-features">
+                    <span><i class="fas fa-brain"></i> Kecerdasan</span>
+                    <span><i class="fas fa-chart-line"></i> Pertumbuhan</span>
+                    <span><i class="fas fa-trophy"></i> Kesuksesan</span>
+                </div>
+            `
+        };
+
+        // Page Management
+        function showPage(pageId) {
+            const allPages = document.querySelectorAll('.page');
+            const selectedPage = document.getElementById(pageId + '-page');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            // Hide all pages
+            allPages.forEach(page => {
+                page.classList.remove('active');
+                page.style.animation = 'none';
+            });
+            
+            // Remove active class from all nav links
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected page with animation
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                selectedPage.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            }
+            
+            // Update active nav link
+            const activeLink = Array.from(navLinks).find(link => 
+                link.getAttribute('href') === '#' || link.getAttribute('onclick').includes(pageId)
+            );
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Scroll to top with smooth animation
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Create floating hearts when changing pages
+            createFloatingHearts();
+        }
+
+        // Decision Logic
+        function makeChoice(choice) {
+            const endingContent = document.getElementById('ending-content');
+            endingContent.style.animation = 'fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            
+            if (choice === 'aisyah') {
+                endingContent.innerHTML = config.endingAisyah;
+            } else if (choice === 'nisa') {
+                endingContent.innerHTML = config.endingNisa;
+            }
+            
+            // Show ending page
+            showPage('ending');
+            
+            // Create celebration hearts
+            createCelebrationHearts();
+        }
+
+        // Restart Story
+        function restartStory() {
+            showPage('intro');
+            const firstNavLink = document.querySelector('.nav-links a');
+            if (firstNavLink) {
+                firstNavLink.classList.add('active');
+            }
+        }
+
+        // Create Floating Hearts
+        function createFloatingHearts() {
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+                }, i * 200);
+            }
+        }
+
+        // Create Celebration Hearts
+        function createCelebrationHearts() {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '💕';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    heart.style.animationDelay = Math.random() * 1 + 's';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        // Create Click Feedback
+        function createClickFeedback(event) {
+            const feedback = document.createElement('div');
+            feedback.className = 'click-feedback';
+            feedback.innerHTML = '💖';
+            feedback.style.left = event.clientX + 'px';
+            feedback.style.top = event.clientY + 'px';
+            
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                feedback.remove();
+            }, 600);
+        }
+
+        // Add smooth scrolling for navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                if (targetId) {
+                    showPage(targetId);
+                }
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const pages = ['intro', 'arif', 'aisyah', 'nisa', 'decision', 'ending'];
+            const currentPage = document.querySelector('.page.active').id.replace('-page', '');
+            const currentIndex = pages.indexOf(currentPage);
+            
+            if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
+                const nextPage = pages[currentIndex + 1];
+                showPage(nextPage);
+                const nextLink = document.querySelectorAll('.nav-links a')[currentIndex + 1];
+                if (nextLink) nextLink.click();
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                const prevPage = pages[currentIndex - 1];
+                showPage(prevPage);
+                const prevLink = document.querySelectorAll('.nav-links a')[currentIndex - 1];
+                if (prevLink) prevLink.click();
+            }
+        });
+
+        // Add page load animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease-in-out';
+                document.body.style.opacity = '1';
+                createFloatingHearts();
+            }, 100);
+        });
+
+        // Add periodic floating hearts
+        setInterval(createFloatingHearts, 5000);
+
+        // Add mouse trail effect
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.98) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.fontSize = '15px';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = 'float-up 2s linear forwards';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        });
+
+        // Add CSS for ending features
+        const style = document.createElement('style');
+        style.textContent = `
+            .ending-features {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+                flex-wrap: wrap;
+            }
+            
+            .ending-features span {
+                background: linear-gradient(135deg, #ff69b4, #ff1493);
+                color: white;
+                padding: 0.8rem 1.5rem;
+                border-radius: 25px;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+                animation: featureFloat 3s ease-in-out infinite;
+            }
+            
+            .ending-features span:nth-child(2) {
+                animation-delay: 0.5s;
+            }
+            
+            .ending-features span:nth-child(3) {
+                animation-delay: 1s;
+            }
+            
+            @keyframes featureFloat {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
